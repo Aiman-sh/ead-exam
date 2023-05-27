@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react'
-export default function PollDisplay(){
+export default function UserParticipation(){
     const [ques,setQues] = useState({
 
         "question": "What is your favorite programming language?",
@@ -16,31 +16,34 @@ export default function PollDisplay(){
       
       
         ]})
-    
-         useEffect(()=>{
-            const optionSelector = document.querySelector('option')
-            optionSelector.addEventListener('select',function(event){
-                alert(event.target.textContent)
-            })
-        },[]) 
 
-       
+        function handelChoice(event){
+
+            console.log(event.target.selectedOption)
+
+        }
+        function updateVotes(id){
+            setQues(prevState =>({...prevState}))
+
+        }
     return(
-        <>
+        <form>
        
-            <label> {ques.question}</label>
-           { <ul >
+            <label> Choose an Option</label>
+           { <select>
               {
                   ques.choices.map(choice =>{
-                    return <li>{choice.label}- Votes: {choice.votes}</li>
+                    return <option value={choice.id}>{choice.label}</option>
                   })
                   
               }
-            </ul>}
+            </select>}
+            <button onClick={handelChoice}>Submit Vote</button>
            
-           
-    
-        
-        </>
+          
+          
+                  
+
+        </form>
     );
 }
